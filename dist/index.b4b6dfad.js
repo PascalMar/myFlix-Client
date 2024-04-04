@@ -27344,20 +27344,6 @@ const MainView = ()=>{
     const [token, setToken] = (0, _react.useState)(storedToken ? storedToken : null);
     const [movies, setMovies] = (0, _react.useState)([]);
     (0, _react.useEffect)(()=>{
-        fetch("https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/movies").then((response)=>response.json()).then((movies)=>{
-            const moviesFromApi = movies.map((movie)=>{
-                return {
-                    id: movie._id.toString(),
-                    title: movie.Title,
-                    genre: movie.Genre.Name,
-                    description: movie.Description,
-                    director: movie.Director.Name
-                };
-            });
-            setMovies(moviesFromApi);
-        });
-    }, []);
-    (0, _react.useEffect)(()=>{
         if (!token) return;
         fetch("https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/movies", {
             headers: {
@@ -27391,19 +27377,19 @@ const MainView = ()=>{
                     }
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 65,
+                    lineNumber: 46,
                     columnNumber: 21
                 }, undefined),
                 "or",
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _signupView.SignupView), {}, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 70,
+                    lineNumber: 51,
                     columnNumber: 21
                 }, undefined)
             ]
         }, void 0, true, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 64,
+            lineNumber: 45,
             columnNumber: 17
         }, undefined) : selectedMovie ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {
             md: 8,
@@ -27415,18 +27401,18 @@ const MainView = ()=>{
                 onBackClick: ()=>setSelectedMovie(null)
             }, void 0, false, {
                 fileName: "src/components/main-view/main-view.jsx",
-                lineNumber: 74,
+                lineNumber: 55,
                 columnNumber: 21
             }, undefined)
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 73,
+            lineNumber: 54,
             columnNumber: 17
         }, undefined) : movies.length === 0 ? /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
             children: "The list is empty!"
         }, void 0, false, {
             fileName: "src/components/main-view/main-view.jsx",
-            lineNumber: 81,
+            lineNumber: 62,
             columnNumber: 17
         }, undefined) : /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _jsxDevRuntime.Fragment), {
             children: [
@@ -27440,12 +27426,12 @@ const MainView = ()=>{
                             }
                         }, void 0, false, {
                             fileName: "src/components/main-view/main-view.jsx",
-                            lineNumber: 86,
+                            lineNumber: 67,
                             columnNumber: 29
                         }, undefined)
                     }, movie.id, false, {
                         fileName: "src/components/main-view/main-view.jsx",
-                        lineNumber: 85,
+                        lineNumber: 66,
                         columnNumber: 25
                     }, undefined)),
                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
@@ -27458,18 +27444,18 @@ const MainView = ()=>{
                     children: "Logout"
                 }, void 0, false, {
                     fileName: "src/components/main-view/main-view.jsx",
-                    lineNumber: 94,
+                    lineNumber: 75,
                     columnNumber: 22
                 }, undefined)
             ]
         }, void 0, true)
     }, void 0, false, {
         fileName: "src/components/main-view/main-view.jsx",
-        lineNumber: 62,
+        lineNumber: 43,
         columnNumber: 9
     }, undefined);
 };
-_s(MainView, "GEkaZzzMWo0a21qjd/T/mnUOFe8=");
+_s(MainView, "VB8BwK2zEiu1oV1tbUjKd/IEN0g=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");

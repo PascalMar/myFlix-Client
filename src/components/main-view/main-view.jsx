@@ -14,26 +14,7 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
-
-    useEffect(() => {
-        fetch("https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/movies")
-            .then((response) => response.json())
-            .then((movies) => {
-                const moviesFromApi = movies.map((movie) => {
-                    return {
-                        id: movie._id.toString(),
-                        title: movie.Title,
-                        genre: movie.Genre.Name,
-                        description: movie.Description,
-                        director: movie.Director.Name,
-                    };
-                });
-                setMovies(moviesFromApi);
-            });
-    }, []);
-
-
-
+    
     useEffect(() => {
         if (!token) {
             return;
