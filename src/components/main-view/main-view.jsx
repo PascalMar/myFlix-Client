@@ -4,6 +4,7 @@ import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
+import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
@@ -37,6 +38,7 @@ export const MainView = () => {
                     };
                 });
                 setMovies(moviesFromApi);
+                localStorage.setItem("movies", JSON.stringify(movies));
             });
     }, [token]);
 
@@ -46,6 +48,8 @@ export const MainView = () => {
                 user={user}
                 onLoggedOut={() => {
                     setUser(null);
+                    setToken(null);
+                    localStorage.clear();
                 }}
             />
 
@@ -107,11 +111,32 @@ export const MainView = () => {
                                 ) : (
                                     <>
                                         {movies.map((movie) => (
-                                            <Col className="mb-4" key={movie.id} md={3}>
-                                                <MovieCard movie={movie} />
+                                            <Col className="mb-5" key={movie.id} md={3}>
+                                                <MovieCard
+                                                    movie={movie}
+                                                    isFavorite={user.FavoriteMovies.includes(movie.id)}
+                                                />
                                             </Col>
                                         ))}
                                     </>
+                                )}
+                            </>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <>
+                                {!user ? (
+                                    <Navigate to="/login" replace />
+                                ) : (
+                                    <Col md={8}>
+                                        <ProfileView
+                                            localUser={user}
+                                            movies={movies}
+                                            token={token}
+                                        />
+                                    </Col>
                                 )}
                             </>
                         }
