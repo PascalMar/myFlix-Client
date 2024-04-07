@@ -77,7 +77,10 @@ export const MainView = () => {
                                     <Navigate to="/" />
                                 ) : (
                                     <Col md={5}>
-                                        <LoginView onLoggedIn={(user) => setUser(user)} />
+                                        <LoginView onLoggedIn={(user, token) => {
+                                            setUser(user);
+                                            setToken(token);
+                                        }} />
                                     </Col>
                                 )}
                             </>
@@ -111,10 +114,10 @@ export const MainView = () => {
                                 ) : (
                                     <>
                                         {movies.map((movie) => (
-                                            <Col className="mb-5" key={movie.id} md={3}>
+                                            <Col className="mb-5" key={movie.title} md={3}>
                                                 <MovieCard
                                                     movie={movie}
-                                                    isFavorite={user.FavoriteMovies.includes(movie.id)}
+                                                    isFavorite={user.FavoriteMovies.includes(movie.title)}
                                                 />
                                             </Col>
                                         ))}

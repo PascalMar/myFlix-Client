@@ -15,7 +15,7 @@ export const ProfileView = ({ localUser, movies, token }) => {
     const [Password, setPassword] = useState(storedUser?.Password || '');
     const [Birthday, setBirthdate] = useState(storedUser?.Birthday || '');
     const [user, setUser] = useState();
-    const favoriteMovies = user === undefined ? [] : movies.filter(m => user.favoriteMovies.includes(m.title))
+    const favoriteMovies = user === undefined ? [] : movies.filter(m => user.FavoriteMovies.includes(m.title))
 
     const formData = {
         Username: Username,
@@ -89,30 +89,18 @@ export const ProfileView = ({ localUser, movies, token }) => {
             }
         });
     };
+
     useEffect(() => {
         if (!token) {
             return;
         }
 
-        fetch("https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/users", {
+        fetch("https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/users/" + Username, {
             headers: { Authorization: `Bearer ${token}` }
         })
             .then((response) => response.json())
             .then((data) => {
-                const usersFromApi = data.map((resultUser) => {
-                    return {
-                        _id: resultUser._id,
-                        Username: resultUser.Username,
-                        Password: resultUser.Password,
-                        Email: resultUser.Email,
-                        Birthday: resultUser.Birthday,
-                        favoriteMovies: resultUser.FavoriteMovies
-                    };
-                });
-                const currentUser = usersFromApi.find((u) => u.Username === localUser.Username);
-                setUser(currentUser);
-                console.log("Profile Saved User: " + JSON.stringify(currentUser));
-               
+                setUser(data);
             })
             .catch((error) => {
                 console.error(error);
