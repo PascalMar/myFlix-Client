@@ -13194,6 +13194,10 @@ textarea.form-control-lg {
   color: #4682b4;
 }
 
+div {
+  max-width: 100%;
+}
+
 .back-button {
   color: #f5f5f5;
   cursor: pointer;
