@@ -38,7 +38,6 @@ export const MainView = () => {
                     };
                 });
                 setMovies(moviesFromApi);
-                localStorage.setItem("movies", JSON.stringify(movies));
             });
     }, [token]);
 
