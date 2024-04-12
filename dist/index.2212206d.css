@@ -13198,16 +13198,64 @@ div {
   max-width: 100%;
 }
 
+.heart-img {
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+}
+
+.movie-container {
+  align-items: flex-start;
+  display: flex;
+}
+
+.movie-details {
+  flex-direction: column;
+  margin-left: 20px;
+}
+
+.movie-image {
+  width: 300px;
+  height: 450px;
+  margin-bottom: 20px;
+}
+
+.movie-info {
+  margin-bottom: 10px;
+}
+
+.info-label {
+  color: #000;
+  font-weight: bold;
+}
+
+.info-text {
+  color: #000;
+  margin-left: 5px;
+}
+
 .back-button {
   color: #f5f5f5;
   cursor: pointer;
-  background-color: #1e90ff;
+  background-color: #273469;
   border: none;
   border-radius: 4px;
+  margin-top: 400px;
+  margin-right: 40px;
   padding: 4px 12px;
 }
 
-img {
-  width: 100%;
+.button-container {
+  flex-direction: row !important;
+  margin-top: 10px !important;
+  display: flex !important;
+}
+
+.back-button:hover {
+  background-color: #2f3d7d;
+}
+
+.NavbarStyle {
+  margin-bottom: 15px;
 }
 /*# sourceMappingURL=index.2212206d.css.map */
