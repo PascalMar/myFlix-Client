@@ -7,7 +7,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate,  } from "react-router-dom";
 
 
 export const MainView = () => {
@@ -16,6 +16,10 @@ export const MainView = () => {
     const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
+    const [filteredMovies, setFilteredMovies] = useState([]);
+  
+
+ 
 
     useEffect(() => {
         if (!token) {
@@ -34,12 +38,17 @@ export const MainView = () => {
                         genre: movie.Genre.Name,
                         description: movie.Description,
                         director: movie.Director.Name,
-                        image: movie.ImagePath
+                        image: movie.ImagePath 
+                                           
                     };
                 });
                 setMovies(moviesFromApi);
             });
     }, [token]);
+
+    
+
+
 
     return (
         <BrowserRouter>
@@ -50,6 +59,8 @@ export const MainView = () => {
                     setToken(null);
                     localStorage.clear();
                 }}
+                setFilteredMovies={setFilteredMovies}
+                movies={movies}
             />
 
             <Row className="justify-content-md-center">
@@ -106,20 +117,34 @@ export const MainView = () => {
                         path="/"
                         element={
                             <>
-                                {!user ? (
-                                    <Navigate to="/login" replace />
-                                ) : movies.length === 0 ? (
-                                    <Col>The list is empty!</Col>
-                                ) : (
+                                {user && (
                                     <>
-                                        {movies.map((movie) => (
-                                            <Col className="mb-5" key={movie.title} md={3}>
-                                                <MovieCard
-                                                    movie={movie}
-                                                    isFavorite={user.FavoriteMovies.includes(movie.title)}
-                                                />
-                                            </Col>
-                                        ))}
+                                        {filteredMovies.length > 0
+                                            ?
+                                            filteredMovies.map((movie) => (
+                                                <Col
+                                                    className="mb-4"
+                                                    key={movie.id}
+                                                    md={3}
+                                                >
+                                                    <MovieCard movie={movie}
+                                                        isFavorite={user.FavoriteMovies && user.FavoriteMovies.includes(movie.title)} />
+                                                </Col>
+                                            ))
+                                            :
+                                            movies.map((movie) => (
+                                                <Col
+                                                    className="mb-4"
+                                                    key={movie.id}
+                                                    md={3}
+                                                >
+                                                    <MovieCard
+                                                        movie={movie}
+                                                        isFavorite={user.FavoriteMovies && user.FavoriteMovies.includes(movie.title)}
+                                                        setUser={setUser}
+                                                    />
+                                                </Col>
+                                            ))}
                                     </>
                                 )}
                             </>

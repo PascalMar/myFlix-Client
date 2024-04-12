@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Button, Card, Container } from 'react-bootstrap';
+import { Card, Container } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { UserInfo } from './user-info';
 import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from "./update-user";
 
-export const ProfileView = ({ localUser, movies, token }) => {
+export const ProfileView = ({ movies, token }) => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
     const [Username, setUsername] = useState(storedUser?.Username || '');
@@ -135,7 +135,7 @@ export const ProfileView = ({ localUser, movies, token }) => {
             <Row>
                 <Col className="mb-5" xs={12} md={12}>
 
-                    {user && <FavoriteMovies user={user} favoriteMovies={favoriteMovies} />}
+                    {user && <FavoriteMovies user={user} favoriteMovies={favoriteMovies} setUser={setUser} />}
 
                 </Col>
             </Row>
@@ -143,8 +143,8 @@ export const ProfileView = ({ localUser, movies, token }) => {
     );
 };
 
-// ProfileView.propTypes = {
-//     localUser: PropTypes.object.isRequired,
-//     movies: PropTypes.array.isRequired,
-//     token: PropTypes.string.isRequired
-// };
+ProfileView.propTypes = {
+    localUser: PropTypes.object.isRequired,
+    movies: PropTypes.array.isRequired,
+    token: PropTypes.string.isRequired
+};

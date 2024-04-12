@@ -2,13 +2,16 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import heart from "../../assets/img/heart.png"
+import heartFilled from "../../assets/img/heart_filled.png"
+import "./movie-card.scss"
 
 
-export const MovieCard = ({ movie, isFavorite }) => {
+export const MovieCard = ({ movie, isFavorite, setUser }) => {
 
     const storedToken = localStorage.getItem("token");
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const [user, setUser] = useState(storedUser ? storedUser : null);
+    const user = JSON.parse(localStorage.getItem("user"));
+    // const [user, setUser] = useState(storedUser ? storedUser : null);
     const [token, setToken] = useState(storedToken ? storedToken : null);
 
 
@@ -28,7 +31,6 @@ export const MovieCard = ({ movie, isFavorite }) => {
                 if (!response.ok) {
                     throw new Error("Failed to add movie to favorites.");
                 }
-                window.location.reload();
                 return response.json();
             })
             .then((user) => {
@@ -59,8 +61,6 @@ export const MovieCard = ({ movie, isFavorite }) => {
                 if (!response.ok) {
                     throw new Error("Failed to remove movie from favorites.");
                 }
-                // alert("Movie removed from favorites successfully!");
-                window.location.reload();
                 return response.json();
             })
             .then((user) => {
@@ -78,25 +78,32 @@ export const MovieCard = ({ movie, isFavorite }) => {
 
     return (
         <>
-            <Link to={`/movies/${encodeURIComponent(movie.id)}`} className="movie-view">
-                <Card className="h-100" >
-                    <Card.Img variant="top" src={movie.image} className="object-fit-cover" />
-                    <Card.Body>
+            <Card className="h-100" >
+                <Link to={`/movies/${encodeURIComponent(movie.id)}`} className="movie-view">
+                    <Card.Img
+                        variant="top"
+                        src={movie.image}
+                    />
+                </Link>
+                <Card.Body>
+                    <div className="d-flex justify-content-between align-items-center mt-2">
                         <Card.Title>{movie.title}</Card.Title>
-                        <Card.Text>{movie.genre}</Card.Text>
-                    </Card.Body>
-                </Card>
-            </Link>
-            <Card>
-                {isFavorite ? (
-                    <Button variant="primary" onClick={() => handleRemoveFromFavorites(movie)}>Remove from favorites</Button>
-                ) : (
-                    <Button variant="primary" onClick={() => handleAddToFavorites(movie)}>Add to favorites</Button>
-                )}
+                        <Card.Text>{movie.gemre}</Card.Text>
+                        <div>
+                            {isFavorite ? (
+                                <img src={heartFilled} className="heart-img" onClick={() => handleRemoveFromFavorites(movie)} />
+                            ) : (
+                                <img src={heart} className="heart-img" onClick={() => handleAddToFavorites(movie)} />
+                            )}
+                        </div>
+                    </div>
+                </Card.Body>
             </Card>
         </>
     );
 };
+
+
 
 MovieCard.propTypes = {
     movie: PropTypes.shape({
