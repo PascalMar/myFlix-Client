@@ -1,12 +1,18 @@
 import React from 'react'
 import PropTypes from "prop-types";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 export const UserInfo = ({ email, name }) => {
 
   return (
     <div>
-      <span>Username: {name} </span>
-      <span>Email: {email} </span>
+      <div>
+        <span><b>Username:</b> {name} </span>
+      </div>
+      <div>
+        <span><b>Email:</b> {email} </span>
+      </div>
     </div>
   )
 }

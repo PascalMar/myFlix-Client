@@ -13194,10 +13194,6 @@ textarea.form-control-lg {
   color: #4682b4;
 }
 
-div {
-  max-width: 100%;
-}
-
 .heart-img {
   cursor: pointer;
   width: 32px;
@@ -13240,7 +13236,7 @@ div {
   background-color: #273469;
   border: none;
   border-radius: 4px;
-  margin-top: 400px;
+  margin-bottom: 10px;
   margin-right: 40px;
   padding: 4px 12px;
 }
@@ -13253,6 +13249,23 @@ div {
 
 .back-button:hover {
   background-color: #2f3d7d;
+}
+
+@media (width <= 990px) {
+  .movie-details {
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .movie-image {
+    max-width: 100%;
+    height: auto;
+  }
+
+  .movie-container {
+    flex-wrap: wrap;
+    display: flex;
+  }
 }
 
 .NavbarStyle {

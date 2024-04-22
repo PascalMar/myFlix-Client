@@ -7,14 +7,15 @@ import { UserInfo } from './user-info';
 import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from "./update-user";
 
-export const ProfileView = ({ movies, token }) => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
+export const ProfileView = ({ movies, token, localUser, setUser }) => {
+    // const storedUser = JSON.parse(localStorage.getItem("user"));
+    const user = localUser;
 
-    const [Username, setUsername] = useState(storedUser?.Username || '');
-    const [Email, setEmail] = useState(storedUser?.Email || '');
-    const [Password, setPassword] = useState(storedUser?.Password || '');
-    const [Birthday, setBirthdate] = useState(storedUser?.Birthday || '');
-    const [user, setUser] = useState();
+    const [Username, setUsername] = useState(user?.Username || '');
+    const [Email, setEmail] = useState(user?.Email || '');
+    const [Password, setPassword] = useState(user?.Password || '');
+    const [Birthday, setBirthdate] = useState(user?.Birthday || '');
+    // const [user, setUser] = useState();
     const favoriteMovies = user === undefined ? [] : movies.filter(m => user.FavoriteMovies.includes(m.title))
 
     const formData = {

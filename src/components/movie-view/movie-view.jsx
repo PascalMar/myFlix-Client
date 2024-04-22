@@ -35,12 +35,13 @@ export const MovieView = ({ movies }) => {
                     <span className="info-label">Director: </span>
                     <span className="info-text">{movie.director || "No Director"}</span>
                 </div>
+                <div className="button-container">
+                    <Link to={`/`}>
+                        <button className="back-button">Back</button>
+                    </Link>
+                </div>
             </div>
-            <div className="button-container">
-                <Link to={`/`}>
-                    <button className="back-button">Back</button>
-                </Link>
-            </div>
+
         </div>
     );
 }

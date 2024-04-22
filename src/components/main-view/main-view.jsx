@@ -7,7 +7,7 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import { ProfileView } from "../profile-view/profile-view";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { BrowserRouter, Routes, Route, Navigate,  } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, } from "react-router-dom";
 
 
 export const MainView = () => {
@@ -17,9 +17,6 @@ export const MainView = () => {
     const [token, setToken] = useState(storedToken ? storedToken : null);
     const [movies, setMovies] = useState([]);
     const [filteredMovies, setFilteredMovies] = useState([]);
-  
-
- 
 
     useEffect(() => {
         if (!token) {
@@ -38,15 +35,15 @@ export const MainView = () => {
                         genre: movie.Genre.Name,
                         description: movie.Description,
                         director: movie.Director.Name,
-                        image: movie.ImagePath 
-                                           
+                        image: movie.ImagePath
+
                     };
                 });
                 setMovies(moviesFromApi);
             });
     }, [token]);
 
-    
+
 
 
 
@@ -117,10 +114,17 @@ export const MainView = () => {
                         path="/"
                         element={
                             <>
-                                {user && (
+                                {!user ? (
+                                    <Col md={5}>
+                                        <LoginView onLoggedIn={(user, token) => {
+                                            setUser(user);
+                                            setToken(token);
+                                        }} />
+                                    </Col>
+                                ) : (
                                     <>
-                                        {filteredMovies.length > 0
-                                            ?
+
+                                        {filteredMovies.length > 0 ?
                                             filteredMovies.map((movie) => (
                                                 <Col
                                                     className="mb-4"
@@ -130,8 +134,7 @@ export const MainView = () => {
                                                     <MovieCard movie={movie}
                                                         isFavorite={user.FavoriteMovies && user.FavoriteMovies.includes(movie.title)} />
                                                 </Col>
-                                            ))
-                                            :
+                                            )) :
                                             movies.map((movie) => (
                                                 <Col
                                                     className="mb-4"
@@ -145,6 +148,7 @@ export const MainView = () => {
                                                     />
                                                 </Col>
                                             ))}
+
                                     </>
                                 )}
                             </>
@@ -162,6 +166,7 @@ export const MainView = () => {
                                             localUser={user}
                                             movies={movies}
                                             token={token}
+                                            setUser={setUser}
                                         />
                                     </Col>
                                 )}
