@@ -13200,6 +13200,24 @@ textarea.form-control-lg {
   height: 32px;
 }
 
+@media only screen and (width >= 768px) and (width <= 1200px) {
+  .heart-img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+@media only screen and (width >= 768px) and (width <= 992px) {
+  .heart-img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .card-title {
+    font-size: 1rem;
+  }
+}
+
 .movie-container {
   align-items: flex-start;
   display: flex;

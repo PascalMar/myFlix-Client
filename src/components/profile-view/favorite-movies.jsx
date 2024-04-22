@@ -6,9 +6,7 @@ import { MovieCard } from '../movie-card/movie-card';
 import { Link } from 'react-router-dom';
 
 export const FavoriteMovies = ({ user, favoriteMovies, setUser }) => {
-
-
-
+  
   return (
     <Row>
       <Col md={12} >
