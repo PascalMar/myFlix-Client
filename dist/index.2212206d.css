@@ -13208,11 +13208,6 @@ textarea.form-control-lg {
 }
 
 @media only screen and (width >= 768px) and (width <= 992px) {
-  .heart-img {
-    width: 24px;
-    height: 24px;
-  }
-
   .card-title {
     font-size: 1rem;
   }
