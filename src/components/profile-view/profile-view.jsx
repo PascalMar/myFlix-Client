@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Card, Container } from 'react-bootstrap';
+import { Card, Container, Alert } from 'react-bootstrap';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { UserInfo } from './user-info';
@@ -8,14 +8,13 @@ import { FavoriteMovies } from './favorite-movies';
 import { UpdateUser } from "./update-user";
 
 export const ProfileView = ({ movies, token, localUser, setUser }) => {
-    // const storedUser = JSON.parse(localStorage.getItem("user"));
+
     const user = localUser;
 
     const [Username, setUsername] = useState(user?.Username || '');
     const [Email, setEmail] = useState(user?.Email || '');
     const [Password, setPassword] = useState(user?.Password || '');
     const [Birthday, setBirthdate] = useState(user?.Birthday || '');
-    // const [user, setUser] = useState();
     const favoriteMovies = user === undefined ? [] : movies.filter(m => user.FavoriteMovies.includes(m.title))
 
     const formData = {
@@ -24,6 +23,22 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
         Birthday: Birthday,
         Password: Password
     };
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertVariant, setAlertVariant] = useState('');
+
+    useEffect(() => {
+        if (showAlert) {
+            const timeout = setTimeout(() => {
+                setShowAlert(false);
+                setAlertMessage('');
+                setAlertVariant('');
+            }, 3000);
+            
+            return () => clearTimeout(timeout);
+        }
+    }, [showAlert]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -37,11 +52,15 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
         })
             .then((response) => {
                 if (response.ok) {
-                    alert("Update successful");
+                    setAlertVariant('success');
+                    setAlertMessage('Update successful');
+                    setShowAlert(true);
                     window.location.reload();
                     return response.json();
                 }
-                alert("Update failed");
+                setAlertVariant('danger');
+                setAlertMessage('Update failed');
+                setShowAlert(true);
             })
             .then((updatedUser) => {
                 if (updatedUser) {
@@ -82,11 +101,15 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
             }
         }).then((response) => {
             if (response.ok) {
-                alert("Account deleted successfully.");
+                setAlertVariant('success');
+                setAlertMessage('Account deleted successfully.');
+                setShowAlert(true);
                 localStorage.clear();
                 window.location.reload();
             } else {
-                alert("Something went wrong");
+                setAlertVariant('danger');
+                setAlertMessage('Something went wrong');
+                setShowAlert(true);
             }
         });
     };
@@ -107,7 +130,6 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
                 console.error(error);
             });
     }, [token]);
-
 
     return (
         <Container>
@@ -140,6 +162,15 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
 
                 </Col>
             </Row>
+            {showAlert && (
+                <Row>
+                    <Col>
+                        <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
+                            {alertMessage}
+                        </Alert>
+                    </Col>
+                </Row>
+            )}
         </Container>
     );
 };
