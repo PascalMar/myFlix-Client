@@ -13,17 +13,17 @@ export const LoginView = ({ onLoggedIn }) => {
   const [alertMessage, setAlertMessage] = useState('');
   const [alertVariant, setAlertVariant] = useState('');
 
-  useEffect(() => {
-    if (showAlert) {
-      const timeout = setTimeout(() => {
-        setShowAlert(false);
-        setAlertMessage('');
-        setAlertVariant('');
-      }, 3000);
+  // useEffect(() => {
+  //   if (showAlert) {
+  //     const timeout = setTimeout(() => {
+  //       setShowAlert(false);
+  //       setAlertMessage('');
+  //       setAlertVariant('');
+  //     }, 3000);
 
-      return () => clearTimeout(timeout);
-    }
-  }, [showAlert]);
+  //     return () => clearTimeout(timeout);
+  //   }
+  // }, [showAlert]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -45,7 +45,9 @@ export const LoginView = ({ onLoggedIn }) => {
         if (data.user) {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
-          onLoggedIn(data.user, data.token);
+          setTimeout(() => {
+            onLoggedIn(data.user, data.token);
+          }, 3000);
           setAlertVariant('success');
           setAlertMessage('Logging in');
           setShowAlert(true);
@@ -94,11 +96,9 @@ export const LoginView = ({ onLoggedIn }) => {
           </Card.Body>
         </Card>
       </div>
-      {showAlert && (
-        <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
-          {alertMessage}
-        </Alert>
-      )}
+      <Alert show={showAlert} variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
+        {alertMessage}
+      </Alert>
     </div>
   );
 }

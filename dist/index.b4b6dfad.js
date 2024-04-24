@@ -41808,18 +41808,16 @@ const LoginView = ({ onLoggedIn })=>{
     const [showAlert, setShowAlert] = (0, _react.useState)(false);
     const [alertMessage, setAlertMessage] = (0, _react.useState)("");
     const [alertVariant, setAlertVariant] = (0, _react.useState)("");
-    (0, _react.useEffect)(()=>{
-        if (showAlert) {
-            const timeout = setTimeout(()=>{
-                setShowAlert(false);
-                setAlertMessage("");
-                setAlertVariant("");
-            }, 3000);
-            return ()=>clearTimeout(timeout);
-        }
-    }, [
-        showAlert
-    ]);
+    // useEffect(() => {
+    //   if (showAlert) {
+    //     const timeout = setTimeout(() => {
+    //       setShowAlert(false);
+    //       setAlertMessage('');
+    //       setAlertVariant('');
+    //     }, 3000);
+    //     return () => clearTimeout(timeout);
+    //   }
+    // }, [showAlert]);
     const handleSubmit = (event)=>{
         event.preventDefault();
         const data = {
@@ -41836,7 +41834,9 @@ const LoginView = ({ onLoggedIn })=>{
             if (data.user) {
                 localStorage.setItem("user", JSON.stringify(data.user));
                 localStorage.setItem("token", data.token);
-                onLoggedIn(data.user, data.token);
+                setTimeout(()=>{
+                    onLoggedIn(data.user, data.token);
+                }, 3000);
                 setAlertVariant("success");
                 setAlertMessage("Logging in");
                 setShowAlert(true);
@@ -41867,7 +41867,7 @@ const LoginView = ({ onLoggedIn })=>{
                                             children: "Username:"
                                         }, void 0, false, {
                                             fileName: "src/components/login-view/login-view.jsx",
-                                            lineNumber: 70,
+                                            lineNumber: 72,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -41878,13 +41878,13 @@ const LoginView = ({ onLoggedIn })=>{
                                             minLength: "3"
                                         }, void 0, false, {
                                             fileName: "src/components/login-view/login-view.jsx",
-                                            lineNumber: 71,
+                                            lineNumber: 73,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 69,
+                                    lineNumber: 71,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Group, {
@@ -41894,7 +41894,7 @@ const LoginView = ({ onLoggedIn })=>{
                                             children: "Password:"
                                         }, void 0, false, {
                                             fileName: "src/components/login-view/login-view.jsx",
-                                            lineNumber: 81,
+                                            lineNumber: 83,
                                             columnNumber: 17
                                         }, undefined),
                                         /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _formDefault.default).Control, {
@@ -41904,13 +41904,13 @@ const LoginView = ({ onLoggedIn })=>{
                                             required: true
                                         }, void 0, false, {
                                             fileName: "src/components/login-view/login-view.jsx",
-                                            lineNumber: 82,
+                                            lineNumber: 84,
                                             columnNumber: 17
                                         }, undefined)
                                     ]
                                 }, void 0, true, {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 80,
+                                    lineNumber: 82,
                                     columnNumber: 15
                                 }, undefined),
                                 /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _buttonDefault.default), {
@@ -41920,48 +41920,49 @@ const LoginView = ({ onLoggedIn })=>{
                                     children: "Login"
                                 }, void 0, false, {
                                     fileName: "src/components/login-view/login-view.jsx",
-                                    lineNumber: 90,
+                                    lineNumber: 92,
                                     columnNumber: 15
                                 }, undefined)
                             ]
                         }, void 0, true, {
                             fileName: "src/components/login-view/login-view.jsx",
-                            lineNumber: 68,
+                            lineNumber: 70,
                             columnNumber: 13
                         }, undefined)
                     }, void 0, false, {
                         fileName: "src/components/login-view/login-view.jsx",
-                        lineNumber: 67,
+                        lineNumber: 69,
                         columnNumber: 11
                     }, undefined)
                 }, void 0, false, {
                     fileName: "src/components/login-view/login-view.jsx",
-                    lineNumber: 66,
+                    lineNumber: 68,
                     columnNumber: 9
                 }, undefined)
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 65,
+                lineNumber: 67,
                 columnNumber: 7
             }, undefined),
-            showAlert && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Alert), {
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactBootstrap.Alert), {
+                show: showAlert,
                 variant: alertVariant,
                 dismissible: true,
                 onClose: ()=>setShowAlert(false),
                 children: alertMessage
             }, void 0, false, {
                 fileName: "src/components/login-view/login-view.jsx",
-                lineNumber: 98,
-                columnNumber: 9
+                lineNumber: 99,
+                columnNumber: 7
             }, undefined)
         ]
     }, void 0, true, {
         fileName: "src/components/login-view/login-view.jsx",
-        lineNumber: 64,
+        lineNumber: 66,
         columnNumber: 5
     }, undefined);
 };
-_s(LoginView, "f/tLjMpQlKsqShWzg0Jy3ljGqiI=");
+_s(LoginView, "1+F9Gje/YfLlZ8mBi4YR/7++mfs=");
 _c = LoginView;
 var _c;
 $RefreshReg$(_c, "LoginView");
@@ -42642,7 +42643,8 @@ const ProfileView = ({ movies, token, localUser, setUser })=>{
                     top: 0,
                     left: 0,
                     right: 0,
-                    zIndex: 999
+                    zIndex: 999,
+                    textAlign: "center"
                 },
                 children: showAlert && /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _rowDefault.default), {
                     children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _colDefault.default), {

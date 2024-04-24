@@ -162,7 +162,7 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
 
                 </Col>
             </Row>
-            <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 999 }}>
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 999, textAlign: "center" }}>
                 {showAlert && (
                     <Row>
                         <Col>
