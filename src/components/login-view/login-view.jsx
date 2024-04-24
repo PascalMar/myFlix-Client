@@ -1,16 +1,32 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from 'react-bootstrap/Card';
+import { Alert } from 'react-bootstrap';
 
 export const LoginView = ({ onLoggedIn }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
+  const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState('');
+  const [alertVariant, setAlertVariant] = useState('');
+
+  useEffect(() => {
+    if (showAlert) {
+      const timeout = setTimeout(() => {
+        setShowAlert(false);
+        setAlertMessage('');
+        setAlertVariant('');
+      }, 3000);
+
+      return () => clearTimeout(timeout);
+    }
+  }, [showAlert]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
 
     const data = {
       Username: username,
@@ -30,8 +46,13 @@ export const LoginView = ({ onLoggedIn }) => {
           localStorage.setItem("user", JSON.stringify(data.user));
           localStorage.setItem("token", data.token);
           onLoggedIn(data.user, data.token);
+          setAlertVariant('success');
+          setAlertMessage('Logging in');
+          setShowAlert(true);
         } else {
-          alert("No such user");
+          setAlertVariant('danger');
+          setAlertMessage('No such user');
+          setShowAlert(true);
         }
       })
       .catch((e) => {
@@ -73,6 +94,11 @@ export const LoginView = ({ onLoggedIn }) => {
           </Card.Body>
         </Card>
       </div>
+      {showAlert && (
+        <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
+          {alertMessage}
+        </Alert>
+      )}
     </div>
   );
 }

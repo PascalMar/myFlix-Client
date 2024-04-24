@@ -1,13 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Card from 'react-bootstrap/Card';
+import { Alert } from 'react-bootstrap';
 
 export const SignupView = () => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [email, setEmail] = useState("");
     const [birthday, setBirthday] = useState("");
+
+    const [showAlert, setShowAlert] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertVariant, setAlertVariant] = useState('');
+
+    useEffect(() => {
+        if (showAlert) {
+            const timeout = setTimeout(() => {
+                setShowAlert(false);
+                setAlertMessage('');
+                setAlertVariant('');
+            }, 3000);
+
+            return () => clearTimeout(timeout);
+        }
+    }, [showAlert]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -27,10 +44,13 @@ export const SignupView = () => {
             }
         }).then((response) => {
             if (response.ok) {
-                alert("Signup successful");
-                window.location.reload();
+                setAlertVariant('success');
+                setAlertMessage('Sign up successful');
+                setShowAlert(true);
             } else {
-                alert("Singup failed");
+                setAlertVariant('danger');
+                setAlertMessage('Signup failed');
+                setShowAlert(true);
             }
         });
     };
@@ -89,6 +109,11 @@ export const SignupView = () => {
                     </Card.Body>
                 </Card>
             </div>
+            {showAlert && (
+                <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
+                    {alertMessage}
+                </Alert>
+            )}
         </div>
     );
 }

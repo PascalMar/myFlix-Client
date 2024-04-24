@@ -35,7 +35,7 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
                 setAlertMessage('');
                 setAlertVariant('');
             }, 3000);
-            
+
             return () => clearTimeout(timeout);
         }
     }, [showAlert]);
@@ -55,7 +55,7 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
                     setAlertVariant('success');
                     setAlertMessage('Update successful');
                     setShowAlert(true);
-                    window.location.reload();
+                    // window.location.reload();
                     return response.json();
                 }
                 setAlertVariant('danger');
@@ -93,7 +93,7 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
     };
 
     const handleDeleteAccount = () => {
-        fetch(`https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/users/${storedUser.Username}`, {
+        fetch(`https://pascals-movie-flix-4a5e7f2df223.herokuapp.com/users/${Username}`, {
             method: "DELETE",
             headers: {
                 Authorization: `Bearer ${token}`,
@@ -162,15 +162,17 @@ export const ProfileView = ({ movies, token, localUser, setUser }) => {
 
                 </Col>
             </Row>
-            {showAlert && (
-                <Row>
-                    <Col>
-                        <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
-                            {alertMessage}
-                        </Alert>
-                    </Col>
-                </Row>
-            )}
+            <div style={{ position: "absolute", top: 0, left: 0, right: 0, zIndex: 999 }}>
+                {showAlert && (
+                    <Row>
+                        <Col>
+                            <Alert variant={alertVariant} dismissible onClose={() => setShowAlert(false)} >
+                                {alertMessage}
+                            </Alert>
+                        </Col>
+                    </Row>
+                )}
+            </div>
         </Container>
     );
 };
